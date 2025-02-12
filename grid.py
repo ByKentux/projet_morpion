@@ -50,4 +50,4 @@ class grid:
         for i in range(NB_CELLS):
             if self.cells[i] == EMPTY:
                 return -1 
-        return 0 
+        return 0

@@ -6,12 +6,15 @@ def main():
     port_serveur = 2910
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect((hostname_serveur, port_serveur))
-    
+
     while True:
         data = client.recv(1024).decode()
         print(data)  
 
         if "a gagné" in data or "Match nul" in data or "Vous avez perdu" in data:
+            # Affichage du score actuel
+            print(data)
+
             replay = input("Voulez-vous jouer une nouvelle partie ? (oui/non): ").strip().lower()
             if replay != 'oui':
                 break 
@@ -26,7 +29,7 @@ def main():
                 except ValueError:
                     print("Veuillez entrer un nombre valide entre 0 et 8.")
             client.send(str(shot).encode())
-    
+
     client.close()
 
 if __name__ == "__main__":
