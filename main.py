@@ -2,11 +2,21 @@ import sys
 import socket
 
 def main():
-    # Connexion au serveur
+    # Vérification de l'argument passé pour l'adresse du serveur
+    if len(sys.argv) < 2:
+        print("Erreur : Veuillez spécifier l'adresse du serveur.")
+        sys.exit(1)
+
     hostname_serveur = sys.argv[1]  # Adresse du serveur passée en argument
     port_serveur = 2910
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client.connect((hostname_serveur, port_serveur))
+
+    try:
+        client.connect((hostname_serveur, port_serveur))
+        print(f"Connecté au serveur {hostname_serveur} sur le port {port_serveur}")
+    except (socket.error, socket.gaierror) as e:
+        print(f"Erreur de connexion : {e}")
+        sys.exit(1)
     
     while True:
         # Recevoir les données envoyées par le serveur
